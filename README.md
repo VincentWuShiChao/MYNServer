@@ -16,7 +16,7 @@
   </ul>
 </div>
 <div>
-<h2>项目文件说明
+  <h2>项目文件说明</h2>
 <ul>
     <li>app:项目入口，node app.js打开服务器</li>
     <li>db:数据库文件</li>

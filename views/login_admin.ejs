@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+	<title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="" />
+	<script type="application/x-javascript">
+		addEventListener("load",
+				function() {
+					setTimeout(hideURLbar, 0);
+				}, false);
+		function hideURLbar(){
+			window.scrollTo(0,1);
+		}
+
+
+	</script>
+	<!-- bootstrap-css -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css" >
+<!-- //bootstrap-css -->
+<!-- Custom CSS -->
+	<link href="/css/style.css" rel='stylesheet' type='text/css' />
+	<link href="/css/style-responsive.css" rel="stylesheet"/>
+	<!-- font CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<!-- font-awesome icons -->
+	<link rel="stylesheet" href="/css/font.css" type="text/css"/>
+	<link href="/css/font-awesome.css" rel="stylesheet">
+	<!-- //font-awesome icons -->
+	<script src="/js/jquery2.0.3.min.js"></script>
+
+</head>
+<body>
+<div class="log-w3">
+<div class="w3layouts-main">
+	<h2>管理员登录</h2>
+		<form action="#" method="post" onsubmit="return false">
+			<input type="text" class="ggg" name="Name" id="Name" placeholder="用户名" required="">
+			<input type="password" class="ggg" name="Password" id="Password" placeholder="密码" required="">
+			<span><input type="checkbox" />记住密码</span>
+			<!--<h6><a href="#">Forgot Password?</a></h6>-->
+			<div class="clearfix"></div>
+			<script type="text/javascript">
+				function login_admin(){
+
+					var name=document.getElementById("Name").value;
+					var password=document.getElementById("Password").value;
+					alert("name:"+name+"password:"+password);
+					$.post('http://localhost:6001/BSM/Verify',{"name":name,"password":password},function (data) {
+						console.log(data);
+						data=JSON.parse(data);
+						 if(data.msg==1){
+							 var r=confirm("信息正确");
+							 if(r==true){
+								window.location.replace("http://localhost:6001/BSM/Home?name="+name);
+							 }
+						 }else {
+							 alert(data.msg);
+						 }
+					});
+				}
+			</script>
+			<button id="login" type="button" onclick="login_admin()">登录</button>
+		</form>
+		<!--<p>Don't Have an Account ?<a href="registration.html">Create an account</a></p>-->
+</div>
+</div>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/jquery.slimscroll.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="/js/jquery.scrollTo.js"></script>
+</body>
+</html>

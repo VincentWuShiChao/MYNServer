@@ -1,0 +1,35 @@
+<!--main content start-->
+<section id="main-content">
+  <section class="wrapper">
+    <div class="table-agile-info">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          数据库表
+        </div>
+        <div class="row w3-res-tb">
+          <div class="col-sm-5 m-b-xs">
+            <select class="input-sm form-control w-sm inline v-middle" id="logs">
+              <option value="0">数据库表结构</option>
+              <option value="1">player</option>
+              <option value="2">server</option>
+            </select>
+            <button class="btn btn-sm btn-default" onclick="showTable()">查看</button>
+          </div>
+          <div class="col-sm-5 m-b-xs">
+            <input type="text" class="input-sm form-control w-sm inline v-middle" id="notice">
+            <button class="btn btn-sm btn-default" onclick="showNotice()">发布</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped b-t b-light" id="table">
+
+          </table>
+        </div>
+        <footer class="panel-footer">
+        </footer>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!--main content end-->

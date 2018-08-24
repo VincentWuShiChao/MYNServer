@@ -1,0 +1,106 @@
+<!--main content start-->
+<section id="main-content">
+  <section class="wrapper">
+    <div class="table-agile-info">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Player表
+        </div>
+        <div class="row w3-res-tb">
+          <div class="col-sm-5 m-b-xs">
+            <select class="input-sm form-control w-sm inline v-middle" id="logs">
+              <option value="0">数据库表结构</option>
+              <option value="1">player</option>
+              <option value="2">server</option>
+            </select>
+            <button class="btn btn-sm btn-default" onclick="showTable()">查看</button>
+          </div>
+          <div class="col-sm-4">
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped b-t b-light" id="table">
+            <tbody>
+              <tr>
+                <td>
+                  <h1>pid</h1>
+                </td>
+                <td>
+                  <input type="text" id="pid" value="<%=player[0].pid%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>姓名</h1>
+                </td>
+                <td>
+                  <input type="text" id="name" value="<%=player[0].name%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>战力</h1>
+                </td>
+                <td>
+                  <input type="text" id="integral" value="<%=player[0].integral%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>胜负场数</h1>
+                </td>
+                <td>
+                  <input type="text" id="universal" value="<%=player[0].universal%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>注册时间</h1>
+                </td>
+                <td>
+                  <input type="text" id="time" value="<%=player[0].time%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>登陆类型</h1>
+                </td>
+                <td>
+                  <input type="text" id="logintype" value="<%=player[0].logintype%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>等级</h1>
+                </td>
+                <td>
+                  <input type="text" id="level" value="<%=player[0].level%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>经验</h1>
+                </td>
+                <td>
+                  <input type="text" id="exper" value="<%=player[0].exper%>">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h1>操作</h1>
+                </td>
+                <td>
+                  <button onclick="submit()" id="submit" style="color: green;">提交</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <footer class="panel-footer">
+        </footer>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!--main content end-->

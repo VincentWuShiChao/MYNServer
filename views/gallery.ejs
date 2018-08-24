@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<head>
+    <title>Login_record</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- bootstrap-css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <!-- //bootstrap-css -->
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="/css/style-responsive.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/lightbox.css">
+    <!-- font CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="/css/font.css" type="text/css"/>
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <!-- calendar -->
+    <!-- //calendar -->
+    <!-- //font-awesome icons -->
+    <script src="/js/jquery2.0.3.min.js"></script>
+    <script type="text/javascript">
+        function showServer(){
+            $.post('http://localhost:6001/BSM/GetCacheGame_server',null,function (data,status) {
+                alert(data);
+                var json_data=JSON.parse(data).list;
+                var allMatchingPlayer=json_data.allMatchingPlayer;
+                var global_session_list=json_data.global_session_list;
+                var content=document.getElementById("content");
+                alert(allMatchingPlayer);
+                content.innerHTML=allMatchingPlayer.toString();
+            });
+        }
+    </script>
+</head>
+<body>
+<section id="container">
+    <!--header start-->
+    <header class="header fixed-top clearfix">
+        <!--logo start-->
+        <div class="brand">
+            <a href="index.ejs" class="logo">
+                H1_V1后台管理系统
+            </a>
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars"></div>
+            </div>
+        </div>
+        <div class="top-nav clearfix">
+            <!--search & user info start-->
+            <ul class="nav pull-right top-menu">
+                <li>
+                    <input type="text" class="form-control search" placeholder=" Search">
+                </li>
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <img alt="" src="/images/2.png">
+                        <span class="username"><%=name%></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                        <li><a href="login_admin.ejs"><i class="fa fa-key"></i> Log Out</a></li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+
+            </ul>
+            <!--search & user info end-->
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse">
+            <!-- sidebar menu start-->
+            <div class="leftside-navigation">
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <li>
+                        <a class="active" href="Home">
+                            <i class="fa fa-dashboard"></i>
+                            <span>游戏统计</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/BSM/register_record">
+                            <i class="fa fa-th"></i>
+                            <span>注册记录</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/BSM/login_record">
+                            <i class="fa fa-th"></i>
+                            <span>登录记录</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/BSM/edit_data">
+                            <i class="fa fa-th"></i>
+                            <span>编辑数据</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/BSM/Servers">
+                            <i class="fa fa-glass"></i>
+                            <span>服务器信息</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/BSM/AdminLogin">
+                            <i class="fa fa-user"></i>
+                            <span>重新登录</span>
+                        </a>
+                    </li>
+                </ul>            </div>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- gallery -->
+            <!-- gallery -->
+            <div class="gallery">
+                <h2 class="w3ls_head">游戏服务器</h2>
+                <div class="gallery-grids">
+                    <% for(var i=0;i<servers.length;i++){%>
+                        <% if(i%3==0){%>
+                            <div class="gallery-top-grids">
+                        <%}%>
+                                <div class="col-sm-4 gallery-grids-left">
+                                    <div class="gallery-grid">
+                                        <a class="example-image-link" href="#" onclick="showServer()">
+                                            <img src="/images/g<%=(i+1)%>.jpg" alt="" />
+                                            <div class="captn">
+                                                <h4>服务器名：<%=servers[i].sname%></h4>
+                                                <p>开启状态：<% if(servers[i].state===0){%>
+                                                        未开启
+                                                    <%}else{%>
+                                                        开启
+                                                    <%}%>
+                                                </p>
+                                                <p>连接数：<%=servers[i].count%>&nbsp;&nbsp;&nbsp;&nbsp;接口：<%=servers[i].port%></p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                        <% if(i%3==0){%>
+                            </div>
+                            <% if(i>0){%>
+                                <div class="clearfix"> </div>
+                            <%}%>
+                        <%}%>
+                    <%}%>
+                    <div class="clearfix"> </div>
+                    <script src="/js/lightbox-plus-jquery.min.js"> </script>
+                </div>
+            </div>
+            <!-- //gallery -->
+
+        </section>
+        <script type="text/javascript">
+            function addServer(){
+                let port=document.getElementById("port").value;
+                $.post('http://localhost:6001/BSM/AddServer',{port:port},function (data,status) {
+                    data=JSON.parse(data);
+                    if(data.state===0){
+                        var r=confirm(data.desc);
+                        if(r==true){
+                            window.location.replace("http://localhost:6001/BSM/Servers");
+                        }
+                    }else {
+                        alert(data.desc);
+                    }
+                });
+            }
+            function changeState(){
+                let port=document.getElementById("port_1").value;
+                alert(port);
+                $.post('http://localhost:6001/BSM/ChangeStateOpen',{port:port},function (data,status) {
+                    alert(data);
+                    data=JSON.parse(data);
+                    if(data.state===0){
+                        var r=confirm(data.desc);
+                        if(r==true){
+                            window.location.replace("http://localhost:6001/BSM/Servers");
+                        }
+                    }else{
+                        alert(data.desc);
+                    }
+                });
+            }
+        </script>
+        <div class="gallery-grids">
+            <div style="margin-left:20px">
+                端口：<input type="text" id="port"/>
+                <button id="addServer" class="addServer" onclick="addServer()">添加服务器</button>
+            </div>
+            <div id="content">
+
+            </div>
+
+        </div>
+        <div class="gallery-grids">
+            <div style="margin-left:20px">
+                端口：<input type="text" id="port_1"/>
+                <button id="changeState" class="changeState" onclick="changeState()">开启服务器</button>
+            </div>
+            <div id="content">
+
+            </div>
+
+        </div>
+        <div class="gallery-grids">
+            <div style="margin-left:20px">
+                内容区域：
+            </div>
+            <div id="content">
+
+            </div>
+
+        </div>
+    </section>
+
+    <!--main content end-->
+</section>
+
+<script src="/js/bootstrap.js"></script>
+<script src="/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/jquery.slimscroll.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="/js/jquery.scrollTo.js"></script>
+</body>
+</html>

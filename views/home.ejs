@@ -1,0 +1,160 @@
+<html>
+<head>
+    <title>主页</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/dtree.js"></script>
+    <link href="/css/dtree.css">
+    <script type="text/javascript">
+       function openF(id){
+           alert("id");
+           var tag_1="";
+           //alert(document.getElementById("open").value);
+           //alert($.("input").val());
+           //tag_1="open";
+           var content=document.getElementById("open").value;
+           alert(content);
+           if(content=="开启服务器"){
+               tag_1="open";
+           }
+           if(content=="关闭服务器"){
+               tag_1="close";
+           }
+           //alert(tag_1);
+
+           $.post('http://192.168.1.55:6000/operate_server',{tag:tag_1,id:id,flag:false},function (data) {
+
+               //alert(data);
+               if(data=="1"){
+                   document.getElementById("open").value="关闭服务器";
+                   document.getElementById("state").innerHTML="已开启";
+               }else {
+                   alert(data);
+                   document.getElementById("open").value="开启服务器";
+                   document.getElementById("state").innerHTML="已关闭";
+               }
+           });
+       }
+
+       function getCenterCache(){
+           $.post('http://192.168.1.55:6000/GetCacheCenter_server',null,function (data) {
+
+               //alert(data);
+               /*if(data=="1"){
+                   document.getElementById("open").value="关闭服务器";
+                   document.getElementById("state").innerHTML="已开启";
+               }else {
+                   alert(data);
+                   document.getElementById("open").value="开启服务器";
+                   document.getElementById("state").innerHTML="已关闭";
+               }*/
+               var string_data=JSON.stringify(data);
+               document.getElementById("center_content").innerText=string_data;
+           });
+       }
+       function getGameCache(){
+           $.post('http://192.168.1.55:6000/GetCacheGame_server',null,function (data) {
+               var string_data=JSON.stringify(data);
+               document.getElementById("center_content").innerText=string_data;
+           });
+       }
+       /*(function () {
+
+
+       })(window);*/
+
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">后台管理系统主页</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">用户名：<label id="name_label"><%= name%></label></a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="1" style="float: left;width: 100px;height: 100px;"></div>
+<div class="2" style="margin-left: 50px;float: left">
+
+    <div>
+        <h1>服务器列表</h1>
+        <table border="2" style="width: 300px;text-align: center">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>服务器名称</td>
+                    <td>服务器状态</td>
+                    <td>操作服务器</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0;i<servers_list.length;i++){%>
+                <tr>
+                    <td><%= servers_list[i].id%></td>
+                    <td><%= servers_list[i].sname%></td>
+                    <% if(servers_list[i].state==0){%>
+                        <td id="state">已关闭</td>
+                        <td><input type="button" value="开启服务器" id="open" onclick="openF(<%= servers_list[i].id%>)"></td>
+                    <%}%>
+                    <% if(servers_list[i].state==1){%>
+                        <td id="state">已开启</td>
+                        <td><input type="button" value="关闭服务器" id="open" onclick="openF(<%= servers_list[i].id%>)"></td>
+                    <%}%>
+
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h1>日志列表</h1>
+        <table border="2" style="width: 300px;text-align: center">
+            <thead>
+            <tr>
+                <td>日志名称</td>
+                <td>日志路径</td>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0;i<logs_list.length;i++){%>
+            <tr>
+                <td id="state"><%=logs_list[i].filename%></td>
+                <td id="state"><%=logs_list[i].path%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div>
+        <%- include("./left.ejs")%>
+    </div>
+
+    <div>
+        <h1>获取服务器缓存数据</h1>
+        <input type="button" id="center_server" value="center_server" onclick="getCenterCache()"/>
+        <input type="button" id="game_server" value="game_server" onclick="getGameCache()"/><br>
+        <textarea style="width: 600px;height: 200px" id="center_content">
+
+        </textarea><br>
+
+    </div>
+
+
+</div>
+
+</body>
+
+
+</html>

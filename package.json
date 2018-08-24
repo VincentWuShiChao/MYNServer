@@ -1,0 +1,27 @@
+{
+  "name": "mynserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "lib-qqwry": "^1.0.2",
+    "line-reader": "^0.4.0",
+    "log4js": "^3.0.2",
+    "mysql": "^2.16.0",
+    "node-mysql": "^0.4.2",
+    "request": "^2.87.0",
+    "ws": "^6.0.0"
+  },
+  "apidoc":{
+    "title":"Custom apiDoc browser title",
+    "url":"http://m5.ykplay.com"
+  }
+}

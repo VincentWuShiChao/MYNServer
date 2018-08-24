@@ -1,0 +1,94 @@
+<!--main content start-->
+<script type="text/javascript">
+  function Apply(){
+    var obj = document.getElementById("logs"); //selectid
+    var index = obj.selectedIndex; // 选中索引
+    var text = obj.options[index].text;
+    $.post('http://localhost:6001/BSM/Apply',{"text":text},function (data,status) {
+      alert(data);
+      alert(typeof data);
+      data=JSON.parse(data);
+      alert(data.logs_list.length);
+      var table=document.getElementById("table");
+      $("#table").empty();
+      var tbody=document.createElement("tbody");
+      table.appendChild(tbody);
+      var tr=tbody.insertRow(0);
+      tr.insertCell(tr.cells.length).innerHTML="";
+      tr.insertCell(tr.cells.length).innerHTML="ID";
+      tr.insertCell(tr.cells.length).innerHTML="用户名";
+      tr.insertCell(tr.cells.length).innerHTML="登录时间";
+      tr.insertCell(tr.cells.length).innerHTML="日登陆次数";
+      tr.insertCell(tr.cells.length).innerHTML="ip解析";
+
+      for(let i=0;i<data.logs_list.length;i++){
+        var tr=tbody.insertRow(tbody.rows.length);
+        tr.insertCell(tr.cells.length).innerHTML="";
+        tr.insertCell(tr.cells.length).innerHTML=data.logs_list[i].pid;
+        tr.insertCell(tr.cells.length).innerHTML=data.logs_list[i].name;
+        tr.insertCell(tr.cells.length).innerHTML=data.logs_list[i].loginTime;
+        tr.insertCell(tr.cells.length).innerHTML=data.logs_list[i].count;
+        tr.insertCell(tr.cells.length).innerHTML=JSON.stringify(data.logs_list[i].ipAddr);
+      }
+
+    });
+  }
+
+</script>
+<section id="main-content">
+  <section class="wrapper">
+    <div class="table-agile-info">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          登录记录表
+        </div>
+        <div class="row w3-res-tb">
+          <div class="col-sm-5 m-b-xs">
+            <select class="input-sm form-control w-sm inline v-middle" id="logs">
+              <option value="0">日志目录</option>
+              <% for(var i=0;i<logs.length;i++){%>
+              <option value="<%=i%>"><%=logs[i]%></option>
+              <% }%>
+            </select>
+            <button class="btn btn-sm btn-default" onclick="Apply()">查看</button>
+          </div>
+          <div class="col-sm-4">
+          </div>
+          <!--<div class="col-sm-3">
+              <div class="input-group">
+                  <input type="text" class="input-sm form-control" placeholder="Search">
+<span class="input-group-btn">
+  <button class="btn btn-sm btn-default" type="button">Go!</button>
+</span>
+              </div>
+          </div>-->
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped b-t b-light" id="table">
+
+          </table>
+        </div>
+        <footer class="panel-footer">
+          <!--<div class="row">
+
+            <div class="col-sm-5 text-center">
+              <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+            </div>
+            <div class="col-sm-7 text-right text-center-xs">
+              <ul class="pagination pagination-sm m-t-none m-b-none">
+                <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+              </ul>
+            </div>
+          </div>-->
+        </footer>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!--main content end-->
